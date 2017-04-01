@@ -18,10 +18,15 @@ class NegociacaoController {
         );
         console.log(data);
 
-        let nefociacao = new nefociacao(
+        let negociacao = new Negociacao(
             data, 
             this._inputQuantidade.value,
             this._inputValor.value  
         )
+        let diaMesAno = negociacao.data.getDate() 
+            + '/' + negociacao.data.getMonth() 
+            + '/' + negociacao.data.getFullYear();
+    
+        console.log('Data formatada: '+diaMesAno);
     }
 }
