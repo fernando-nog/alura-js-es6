@@ -1,4 +1,4 @@
-class NegociacaoView {
+class NegociacaoView extends View{
 
     constructor(element){
         this._elemento = element;
