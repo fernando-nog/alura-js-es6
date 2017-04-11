@@ -24,4 +24,12 @@ class Negociacao {
     get valor(){
         return this._valor;
     }
+
+    set quantidade(quantidade){
+        return this._quantidade = quantidade;
+    }
+
+    set valor(valor){
+        return this._valor = valor;
+    }
 }

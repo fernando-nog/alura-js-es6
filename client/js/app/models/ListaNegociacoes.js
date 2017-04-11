@@ -1,14 +1,11 @@
 class ListaNegociacoes {
 
-    constructor(context, eventClosure){
+    constructor(){
         this._negociacoes = [];
-        this._eventClosure = eventClosure;
-        this._context = context;
     }
 
     adiciona(negociacao){
         this._negociacoes.push(negociacao);
-        this._eventClosure(this);
     }
 
     get negociacoes(){
@@ -17,10 +14,5 @@ class ListaNegociacoes {
 
     esvazia(){
         this._negociacoes = [];
-        this._eventClosure(this);
-    }
-
-    _execReflect(){
-        Reflect.apply(this._eventClosure, this._context, [this]);
     }
 }
