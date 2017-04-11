@@ -6,17 +6,9 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
 
-       
-
         this._listaNegociacoes = new ListaNegociacoes(
-
-            this, function(model){
-                this._negociacoesView.update(model);
-            }
+            model => this._negociacoesView.update(model)
         );
-
-
-        
 
         this._mensagem = new Mensagem();
         this._negociacoesView = new NegociacaoView($('#negociacoesView'));

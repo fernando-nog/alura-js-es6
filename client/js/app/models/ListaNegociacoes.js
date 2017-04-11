@@ -8,7 +8,7 @@ class ListaNegociacoes {
 
     adiciona(negociacao){
         this._negociacoes.push(negociacao);
-        this._execReflect();
+        this._eventClosure(this);
     }
 
     get negociacoes(){
@@ -17,7 +17,7 @@ class ListaNegociacoes {
 
     esvazia(){
         this._negociacoes = [];
-        this._execReflect();
+        this._eventClosure(this);
     }
 
     _execReflect(){
