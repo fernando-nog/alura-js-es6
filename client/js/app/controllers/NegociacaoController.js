@@ -48,4 +48,8 @@ class NegociacaoController {
         this._listaNegociacoes.esvazia();
         this._mensagem.texto = "Negociações apagadas.";
     }
+
+    importaNegociacoes(){
+        
+    }
 }
