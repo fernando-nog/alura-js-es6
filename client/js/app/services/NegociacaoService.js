@@ -1,7 +1,7 @@
-class NegociacoesService {
+class NegociacaoService {
 
 
-    obeterNegociacoesDaSemana(){
+    obterNegociacoesDaSemana(callBack){
         const READY_STATE_SUCESS = 4;
         const STATUS_CODE_OK = 200;
 
@@ -12,18 +12,15 @@ class NegociacoesService {
 
         xhr.onreadystatechange = () => {
             if(xhr.readyState == READY_STATE_SUCESS && xhr.status == STATUS_CODE_OK){
+                
+                let listaNegociacoesLocal = JSON.parse(xhr.responseText)
+                .map( n => new Negociacao(n.data, n.quantidade, n.valor));
 
-                console.log('Obetendo as negociações do servidor.');
-
-                console.log(JSON.parse(xhr.responseText));
-
-                JSON.parse(xhr.responseText)
-                .map( objeto => {new Negociacao(objeto.data, objeto.quantidade, objeto.valor)})
-                .forEach( negociacao => this._listaNegociacoes.adiciona(negociacao));
-
-                this._mensagem.texto = 'Negociações importadas com sucesso.';
+                callBack(null, listaNegociacoesLocal)
             }else{
-                console.log('Não foi possível obter as negociações da semana.');
+                let error = 'Não foi possível obter as negociações da semana.';
+                console.log(error);
+                callBack(error);
             }
         };
         
