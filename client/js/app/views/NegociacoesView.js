@@ -5,7 +5,6 @@ class NegociacaoView extends View{
     }
 
     template(model){
-        debugger;
         return `
             <table class="table table-hover table-bordered">
                 <thead>
