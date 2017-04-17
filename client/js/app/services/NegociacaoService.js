@@ -1,24 +1,24 @@
 class NegociacaoService {
 
     constructor(){
-        this._READY_STATE_SUCESS = 2;
+        this._READY_STATE_SUCESS = 3;
         this._STATUS_CODE_OK = 200;
     }
     
-    obterNegociacoesDaSemana(callBack){
+    obterNegociacoesDaSemana(){
 
         return new Promise((resolve, reject)=>{
             let xhr = new XMLHttpRequest();
             xhr.open('GET', 'http://localhost:3000/negociacoes/semana');
 
             xhr.onreadystatechange = () => {
-                debugger;
-                if(xhr.readyState == this._READY_STATE_SUCESS && xhr.status == this._STATUS_CODE_OK){
-                    
+
+                if(xhr.readyState == this._READY_STATE_SUCESS && xhr.status == this._STATUS_CODE_OK && xhr.responseText != ""){
+                     
                     let listaNegociacoesLocal = JSON.parse(xhr.responseText)
                     .map( n => new Negociacao(n.data, n.quantidade, n.valor));
-
-                    resolve(null, listaNegociacoesLocal)
+                    
+                    resolve(listaNegociacoesLocal)
                 }else{
                     let error = 'Não foi possível obter as negociações da semana.';
                     console.log(error);
@@ -44,7 +44,7 @@ class NegociacaoService {
                     let listaNegociacoesLocal = JSON.parse(xhr.responseText)
                     .map( n => new Negociacao(n.data, n.quantidade, n.valor));
 
-                    resolve(null, listaNegociacoesLocal)
+                    resolve(listaNegociacoesLocal)
                 }else{
                     let error = 'Não foi possível obter as negociações da semana retrasada.';
                     console.log(error);
@@ -69,7 +69,7 @@ class NegociacaoService {
                     let listaNegociacoesLocal = JSON.parse(xhr.responseText)
                     .map( n => new Negociacao(n.data, n.quantidade, n.valor));
 
-                    resolve(null, listaNegociacoesLocal);
+                    resolve(listaNegociacoesLocal);
                 }else{
                     let error = 'Não foi possível obter as negociações da semana anterior.';
                     console.log(error);

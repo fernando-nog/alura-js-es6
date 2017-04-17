@@ -53,8 +53,11 @@ class NegociacaoController {
         let service = new NegociacaoService();
 
         let promiseNegSemana = service.obterNegociacoesDaSemana();
+        debugger;
         promiseNegSemana
-            .then(negociacoes => {
+            .then((negociacoes) => {
+                debugger;
+                console.log(negociacoes);
                 negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
                 this._mensagem.texto = 'Negociações importadas com sucesso';
             })
