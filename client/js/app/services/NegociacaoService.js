@@ -1,81 +1,83 @@
 class NegociacaoService {
 
-
+    constructor(){
+        this._READY_STATE_SUCESS = 2;
+        this._STATUS_CODE_OK = 200;
+    }
+    
     obterNegociacoesDaSemana(callBack){
-        const READY_STATE_SUCESS = 4;
-        const STATUS_CODE_OK = 200;
 
-        let xhr = new XMLHttpRequest();
+        return new Promise((resolve, reject)=>{
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost:3000/negociacoes/semana');
 
-        console.log('Importando negociação');
-        xhr.open('GET', 'http://localhost:3000/negociacoes/semana');
+            xhr.onreadystatechange = () => {
+                debugger;
+                if(xhr.readyState == this._READY_STATE_SUCESS && xhr.status == this._STATUS_CODE_OK){
+                    
+                    let listaNegociacoesLocal = JSON.parse(xhr.responseText)
+                    .map( n => new Negociacao(n.data, n.quantidade, n.valor));
 
-        xhr.onreadystatechange = () => {
-            if(xhr.readyState == READY_STATE_SUCESS && xhr.status == STATUS_CODE_OK){
-                
-                let listaNegociacoesLocal = JSON.parse(xhr.responseText)
-                .map( n => new Negociacao(n.data, n.quantidade, n.valor));
-
-                callBack(null, listaNegociacoesLocal)
-            }else{
-                let error = 'Não foi possível obter as negociações da semana.';
-                console.log(error);
-                callBack(error);
-            }
-        };
-        
-        xhr.send();
+                    resolve(null, listaNegociacoesLocal)
+                }else{
+                    let error = 'Não foi possível obter as negociações da semana.';
+                    console.log(error);
+                    reject(error);
+                }
+            };
+            
+            xhr.send();
+        });
     }
 
-    obterNegociacoesDaSemanaRetrasada(callBack){
-        const READY_STATE_SUCESS = 4;
-        const STATUS_CODE_OK = 200;
+    obterNegociacoesDaSemanaRetrasada(){
 
-        let xhr = new XMLHttpRequest();
 
-        console.log('Importando negociação');
-        xhr.open('GET', 'http://localhost:3000/negociacoes/retrasada');
+        return new Promise((resolve, reject)=>{
 
-        xhr.onreadystatechange = () => {
-            if(xhr.readyState == READY_STATE_SUCESS && xhr.status == STATUS_CODE_OK){
-                
-                let listaNegociacoesLocal = JSON.parse(xhr.responseText)
-                .map( n => new Negociacao(n.data, n.quantidade, n.valor));
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost:3000/negociacoes/retrasada');
 
-                callBack(null, listaNegociacoesLocal)
-            }else{
-                let error = 'Não foi possível obter as negociações da semana.';
-                console.log(error);
-                callBack(error);
-            }
-        };
-        
-        xhr.send();
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState == _READY_STATE_SUCESS && xhr.status == _STATUS_CODE_OK){
+                    
+                    let listaNegociacoesLocal = JSON.parse(xhr.responseText)
+                    .map( n => new Negociacao(n.data, n.quantidade, n.valor));
+
+                    resolve(null, listaNegociacoesLocal)
+                }else{
+                    let error = 'Não foi possível obter as negociações da semana retrasada.';
+                    console.log(error);
+                    reject(error);
+                }
+            };
+            
+            xhr.send();
+
+        });
     }
 
      obterNegociacoesDaSemanaAnterior(callBack){
-        const READY_STATE_SUCESS = 4;
-        const STATUS_CODE_OK = 200;
 
-        let xhr = new XMLHttpRequest();
+        return new Promise((resolve, reject)=>{
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost:3000/negociacoes/anterior');
 
-        console.log('Importando negociação');
-        xhr.open('GET', 'http://localhost:3000/negociacoes/anterior');
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState == _READY_STATE_SUCESS && xhr.status == _STATUS_CODE_OK){
+                    
+                    let listaNegociacoesLocal = JSON.parse(xhr.responseText)
+                    .map( n => new Negociacao(n.data, n.quantidade, n.valor));
 
-        xhr.onreadystatechange = () => {
-            if(xhr.readyState == READY_STATE_SUCESS && xhr.status == STATUS_CODE_OK){
-                
-                let listaNegociacoesLocal = JSON.parse(xhr.responseText)
-                .map( n => new Negociacao(n.data, n.quantidade, n.valor));
-
-                callBack(null, listaNegociacoesLocal)
-            }else{
-                let error = 'Não foi possível obter as negociações da semana.';
-                console.log(error);
-                callBack(error);
-            }
-        };
-        
-        xhr.send();
+                    resolve(null, listaNegociacoesLocal);
+                }else{
+                    let error = 'Não foi possível obter as negociações da semana anterior.';
+                    console.log(error);
+                    reject(error);
+                }
+            };
+            
+            xhr.send();
+        });
     }
 }
