@@ -52,21 +52,31 @@ class NegociacaoController {
     importaNegociacoes(){
         let service = new NegociacaoService();
 
-        service.obterNegociacoesDaSemana()
-        .then(negociacoes => {
-            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-            this._mensagem.texto = 'Negociações da semana obtidas com sucesso';
-        })
+        Promise.all([
+            service.obterNegociacoesDaSemana(),
+            service.obterNegociacoesDaSemanaAnterior(),
+            service.obterNegociacoesDaSemanaRetrasada()
+        ]).then(
+            negociacoes => {
+                negociacoes
+                    .reduce((arrayTransformado, array) => arrayTransformado.concat(array), [])
+                    .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+                this._mensagem.texto = 'Negociações da semana obtidas com sucesso';
+            }
+        ).catch(erro => this._mensagem.texto = erro);
+
+        
+        .then()
         .catch(erro => this._mensagem.texto = erro);
 
-        service.obterNegociacoesDaSemanaAnterior()
+        
         .then(negociacoes => {
             negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
             this._mensagem.texto = 'Negociações da semana anterior obtidas com sucesso';
         })
-        .catch(erro => this._mensagem.texto = erro);
+        .catch();
 
-        service.obterNegociacoesDaSemanaRetrasada()
+        
         .then(negociacoes => {
             negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
             this._mensagem.texto = 'Negociações da semana retrasada obtidas com sucesso';
