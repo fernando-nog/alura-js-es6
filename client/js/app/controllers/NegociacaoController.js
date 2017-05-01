@@ -65,23 +65,5 @@ class NegociacaoController {
             }
         ).catch(erro => this._mensagem.texto = erro);
 
-        
-        .then()
-        .catch(erro => this._mensagem.texto = erro);
-
-        
-        .then(negociacoes => {
-            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-            this._mensagem.texto = 'Negociações da semana anterior obtidas com sucesso';
-        })
-        .catch();
-
-        
-        .then(negociacoes => {
-            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-            this._mensagem.texto = 'Negociações da semana retrasada obtidas com sucesso';
-        })
-        .catch(erro => this._mensagem.texto = erro);
-
     }
 }
