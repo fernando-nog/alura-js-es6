@@ -30,11 +30,13 @@ class NegociacaoController {
                 console.log(`Erro ao listar todos: ${erro}`);
                 this._mensagem.texto = erro;
             });
+
+        setInterval(() => {
+            this.importaNegociacoes();
+        }, 3000);
     }
 
     adiciona(event){
-
-        
 
         event.preventDefault();
 
@@ -86,11 +88,16 @@ class NegociacaoController {
     importaNegociacoes(){
         let service = new NegociacaoService();
 
-        Promise.all([
-            service.obterNegociacoesDaSemana(),
-            service.obterNegociacoesDaSemanaAnterior(),
-            service.obterNegociacoesDaSemanaRetrasada()
-        ]).then(
+        service
+        .obterNegociacoes()
+        .then(
+            negociacoes => negociacoes.filter(negociacao => 
+                !this._listaNegociacoes.negociacoes.some(negociacaoExistente =>
+                    JSON.stringify(negociacao) == JSON.stringify(negociacaoExistente)
+                )
+            )
+        )
+        .then(
             negociacoes => {
                 negociacoes
                     .reduce((arrayTransformado, array) => arrayTransformado.concat(array), [])
