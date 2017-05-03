@@ -113,5 +113,19 @@ class NegociacaoService {
                 throw new Errror('Não foi possível listar todos.');
             });
     }
+
+    importa(listAtual){
+        return this.obterNegociacoes()
+        .then(
+            negociacoes => negociacoes.filter(negociacao => 
+                !listAtual.some(negociacaoExistente =>
+                    JSON.stringify(negociacao) == JSON.stringify(negociacaoExistente)
+                )
+            )
+        ).catch((erro) => {
+            console.log(`Erro ao apagar todos: ${erro}`);
+            throw new Errror('Não foi possível listar todos.');
+        });
+    }
 }
 
