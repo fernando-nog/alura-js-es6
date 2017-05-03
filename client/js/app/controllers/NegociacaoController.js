@@ -18,6 +18,10 @@ class NegociacaoController {
             ['texto']
         );
 
+        this._init();
+    }
+
+    _init(){
         ConnectionFactory
             .getConnection()
             .then(connection => new NegociacaoDAO(connection))
