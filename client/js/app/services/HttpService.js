@@ -11,4 +11,14 @@ class HttpService {
             .then(res => this._hasdleErrors(res))
             .then(res => res.json());
     }
+
+    post(url, dado){
+
+        return fetch(url, {
+            headers: {"Content-type":"application/json"},
+            method: "POST",
+            body: JSON.stringify(dado)
+        })
+        .then(res => this._hasdleErrors(res));
+    }
 }
