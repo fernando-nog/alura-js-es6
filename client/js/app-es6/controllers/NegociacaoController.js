@@ -104,3 +104,9 @@ export class NegociacaoController {
 
     }
 }
+
+let negociacaoController = new NegociacaoController();
+
+export function currentInstance(){
+    return negociacaoController;
+}
