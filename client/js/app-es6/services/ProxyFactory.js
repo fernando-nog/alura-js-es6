@@ -1,4 +1,6 @@
-class ProxyFactory {
+import {ListaNegociacoes} from '../models/ListaNegociacoes';
+
+export class ProxyFactory {
 
     static create(target, props, action){
         return new Proxy(new ListaNegociacoes(), {

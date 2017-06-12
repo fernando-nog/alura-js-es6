@@ -1,4 +1,6 @@
-class HttpService {
+import {} from '../polyfill/fetch';
+
+export class HttpService {
 
     _hasdleErrors(res){
         if(!res.ok) throw new Error(res.statusText);

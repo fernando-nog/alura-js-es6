@@ -1,4 +1,7 @@
-class NegociacaoView extends View{
+import {View} from './View';
+import {DateHelper} from '../helpers/DateHelper';
+
+export class NegociacaoView extends View{
 
     constructor(elemento){
         super(elemento);
